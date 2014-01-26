@@ -1,0 +1,3 @@
+iptables:
+  service:
+    - dead

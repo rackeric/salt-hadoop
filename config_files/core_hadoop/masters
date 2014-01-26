@@ -1,0 +1,4 @@
+{% set find = 'role:namenode' %}
+{% for host in salt['mine.get'](find,'network.interfaces', 'grain') %}
+{{ host }}
+{% endfor %}
