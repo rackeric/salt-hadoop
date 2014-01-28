@@ -5,16 +5,14 @@
     'hadoop-lzo-native'
 ] %}
 
-{% for name in packages %}
-{{ name }}_pkg:
+hadoop_install_pkgs:
   pkg:
-    - name: {{ name }}
     - installed
+    - pkgs: {{ packages }}
     - require:
       - pkgrepo: HDP-1.x
       - pkgrepo: HDP-UTILS-1.1.0.16
       - pkgrepo: Updates-HDP-1.x
-{% endfor %}
 
 /usr/lib/hadoop/lib/native/Linux-amd64-64/libsnappy.so:
   file.symlink:
@@ -34,37 +32,35 @@
     - mode: 644
 
 {% if grains['id'] == pillar['namenode_FQDN'] %}
-{% set packages2 = [
+{% set extra_packages = [
     'pig', 'hive', 'hcatalog', 'mysql', 'mysql-server', 'mysql-connector-java', 'hue-plugins', 'hue', 'webhcat-tar-hive', 'webhcat-tar-pig', 'zookeeper', 'hbase'
 ] %}
 
-{% for name in packages2 %}
-{{ name }}_pkg:
+hadoop_install_extras_pkgs:
   pkg:
-    - name: {{ name }}
     - installed
+    - pkgs: {{ extra_packages }}
     - require:
       - pkgrepo: HDP-1.x
       - pkgrepo: HDP-UTILS-1.1.0.16
       - pkgrepo: Updates-HDP-1.x
-{% endfor %}
 
 mysqld:
   service:
     - running
     - require:
-      - pkg: mysql-server_pkg
+      - pkg: hadoop_install_extras_pkgs
 
 /usr/lib/hive/lib/mysql-connector-java-5.1.17.jar:
   file.symlink:
     - target: /usr/share/java/mysql-connector-java-5.1.17.jar
     - require:
-      - pkg: mysql-connector-java_pkg
+      - pkg: hadoop_install_extras_pkgs
 
 /usr/lib/hive/lib/mysql-connector-java.jar:
   file.symlink:
     - target: /usr/share/java/mysql-connector-java.jar
     - require:
-      - pkg: mysql-connector-java_pkg
+      - pkg: hadoop_install_extras_pkgs
 
 {% endif %}
