@@ -38,7 +38,7 @@ HADOOP!
 Starting HIVE
 =============
 
-	chmod 777 /hadoop/hdfs/tmp/;
+	chmod 777 /hadoop/hdfs/tmp/; # NEED TO UPDATE FOR CORRECT PERMISSIONS
 	chmod 777 /tmp/hadoop-\$USER_NAME\$HUE_SUFFIX/;
 
 	nohup hive --service metastore>/var/log/hive/hive.out 2>/var/log/hive/hive.log & 
