@@ -238,8 +238,8 @@ su hdfs;
 Services and Ports
 ------------------
 Namenode
-- 166.78.62.231:8020
-- 166.78.62.231:50070  <-- NameNode web interface
+- 0.0.0.0:8020
+- 0.0.0.0:50070  <-- NameNode web interface
 
 Datanode
 - 0.0.0.0:50075  <-- Browser HDFS
@@ -247,15 +247,15 @@ Datanode
 - 0.0.0.0:8010
 
 JobTracker
-- 166.78.62.231:50030  <-- JobTracker web UI
-- 166.78.62.231:50300
+- 0.0.0.0:50030  <-- JobTracker web UI
+- 0.0.0.0:50300
 
 JobHistory
-- 166.78.62.231:51111   <-- JobHistory web UI
+- 0.0.0.0:51111   <-- JobHistory web UI
 
 TaskTracker
 - 0.0.0.0:50060
-- 127.0.0.1:36892
+- 0.0.0.0:36892
 
 
 The Salt Formula Outline
